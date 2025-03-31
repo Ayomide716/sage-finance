@@ -1,11 +1,21 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
+import { useAuth } from '@/lib/auth';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from '@/components/ui/dropdown-menu';
+import { useToast } from '@/hooks/use-toast';
 
 interface AppHeaderProps {}
 
 const AppHeader: React.FC<AppHeaderProps> = () => {
   const [, setLocation] = useLocation();
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const { user, logout } = useAuth();
+  const { toast } = useToast();
 
   // Listen for online/offline events
   useState(() => {
@@ -34,6 +44,20 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
     document.dispatchEvent(toast);
   };
 
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out",
+    });
+    setLocation('/login');
+  };
+
+  const getUserInitials = () => {
+    if (!user || !user.username) return '?';
+    return user.username.substring(0, 2).toUpperCase();
+  };
+
   return (
     <header className="bg-white shadow-sm sticky top-0 z-10">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -44,24 +68,45 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
           <h1 className="text-xl font-semibold text-dark" onClick={() => setLocation('/')}>FinTrack</h1>
         </div>
         <div className="flex items-center">
-          <button 
-            onClick={syncData} 
-            className="p-2 text-textGray relative"
-            aria-label="Sync data"
-          >
-            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            {isOffline && (
-              <span className="absolute top-0 right-0 h-2 w-2 bg-warning rounded-full"></span>
-            )}
-          </button>
-          <button 
-            className="ml-2 flex items-center justify-center h-8 w-8 rounded-full bg-primary text-white"
-            aria-label="Profile menu"
-          >
-            <span className="text-xs">JS</span>
-          </button>
+          {user && (
+            <>
+              <button 
+                onClick={syncData} 
+                className="p-2 text-textGray relative"
+                aria-label="Sync data"
+              >
+                <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                {isOffline && (
+                  <span className="absolute top-0 right-0 h-2 w-2 bg-warning rounded-full"></span>
+                )}
+              </button>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger className="ml-2 flex items-center justify-center h-8 w-8 rounded-full bg-primary text-white">
+                  <span className="text-xs">{getUserInitials()}</span>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem className="font-medium">
+                    Hi, {user.username}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          )}
+          
+          {!user && (
+            <button 
+              onClick={() => setLocation('/login')}
+              className="text-sm font-medium text-primary"
+            >
+              Login
+            </button>
+          )}
         </div>
       </div>
     </header>

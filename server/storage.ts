@@ -13,13 +13,18 @@ export interface IStorage {
   
   // Transaction operations
   getAllTransactions(): Promise<Transaction[]>;
+  getTransactionsByUserId(userId: number): Promise<Transaction[]>;
   getTransactionsByType(type: 'income' | 'expense'): Promise<Transaction[]>;
+  getTransactionsByUserAndType(userId: number, type: 'income' | 'expense'): Promise<Transaction[]>;
   getTransactionsByCategory(category: string): Promise<Transaction[]>;
+  getTransactionsByUserAndCategory(userId: number, category: string): Promise<Transaction[]>;
   addTransaction(transaction: InsertTransaction & { userId: number }): Promise<Transaction>;
   
   // Budget operations
   getAllBudgets(): Promise<Budget[]>;
+  getBudgetsByUserId(userId: number): Promise<Budget[]>;
   getBudgetByCategory(category: string): Promise<Budget | undefined>;
+  getBudgetByUserAndCategory(userId: number, category: string): Promise<Budget | undefined>;
   addBudget(budget: InsertBudget & { spent: number, userId: number }): Promise<Budget>;
   updateBudgetSpent(id: number, spent: number): Promise<Budget | undefined>;
 }
@@ -45,12 +50,27 @@ export class MemStorage implements IStorage {
   }
 
   private initializeDefaultData() {
-    // Add a default user
+    // Add default users
     this.users.set(1, {
       id: 1,
       username: 'demo',
       password: 'demo123'
     });
+    
+    this.users.set(2, {
+      id: 2,
+      username: 'alice',
+      password: 'password123'
+    });
+    
+    this.users.set(3, {
+      id: 3,
+      username: 'bob',
+      password: 'password123'
+    });
+    
+    // Set the next user ID
+    this.userId = 4;
     
     // Add some default transactions
     const today = new Date().toISOString().split('T')[0];
@@ -103,7 +123,7 @@ export class MemStorage implements IStorage {
       userId: 1
     });
     
-    // Add some default budgets
+    // Add some default budgets for demo user
     this.addBudget({
       category: 'Food & Dining',
       amount: 500,
@@ -131,6 +151,92 @@ export class MemStorage implements IStorage {
       spent: 380,
       userId: 1
     });
+    
+    // Add some data for Alice (User 2)
+    this.addTransaction({
+      type: 'income',
+      amount: 3200.00,
+      category: 'Income',
+      description: 'Monthly Salary',
+      date: today,
+      userId: 2
+    });
+    
+    this.addTransaction({
+      type: 'expense',
+      amount: 1500.00,
+      category: 'Housing',
+      description: 'Rent',
+      date: yesterday,
+      userId: 2
+    });
+    
+    this.addTransaction({
+      type: 'expense',
+      amount: 85.75,
+      category: 'Food & Dining',
+      description: 'Restaurant',
+      date: twoDaysAgo,
+      userId: 2
+    });
+    
+    // Add budgets for Alice
+    this.addBudget({
+      category: 'Food & Dining',
+      amount: 600,
+      spent: 85.75,
+      userId: 2
+    });
+    
+    this.addBudget({
+      category: 'Housing',
+      amount: 1500,
+      spent: 1500,
+      userId: 2
+    });
+    
+    // Add some data for Bob (User 3)
+    this.addTransaction({
+      type: 'income',
+      amount: 2800.00,
+      category: 'Income',
+      description: 'Salary',
+      date: today,
+      userId: 3
+    });
+    
+    this.addTransaction({
+      type: 'expense',
+      amount: 950.00,
+      category: 'Housing',
+      description: 'Rent',
+      date: yesterday,
+      userId: 3
+    });
+    
+    this.addTransaction({
+      type: 'expense',
+      amount: 120.50,
+      category: 'Entertainment',
+      description: 'Movie and dinner',
+      date: yesterday,
+      userId: 3
+    });
+    
+    // Add budgets for Bob
+    this.addBudget({
+      category: 'Housing',
+      amount: 1000,
+      spent: 950,
+      userId: 3
+    });
+    
+    this.addBudget({
+      category: 'Entertainment',
+      amount: 200,
+      spent: 120.50,
+      userId: 3
+    });
   }
 
   // User operations
@@ -156,9 +262,21 @@ export class MemStorage implements IStorage {
     return Array.from(this.transactions.values());
   }
   
+  async getTransactionsByUserId(userId: number): Promise<Transaction[]> {
+    return Array.from(this.transactions.values()).filter(
+      (transaction) => transaction.userId === userId
+    );
+  }
+  
   async getTransactionsByType(type: 'income' | 'expense'): Promise<Transaction[]> {
     return Array.from(this.transactions.values()).filter(
       (transaction) => transaction.type === type
+    );
+  }
+  
+  async getTransactionsByUserAndType(userId: number, type: 'income' | 'expense'): Promise<Transaction[]> {
+    return Array.from(this.transactions.values()).filter(
+      (transaction) => transaction.userId === userId && transaction.type === type
     );
   }
   
@@ -168,18 +286,29 @@ export class MemStorage implements IStorage {
     );
   }
   
+  async getTransactionsByUserAndCategory(userId: number, category: string): Promise<Transaction[]> {
+    return Array.from(this.transactions.values()).filter(
+      (transaction) => transaction.userId === userId && transaction.category === category
+    );
+  }
+  
   async addTransaction(transaction: InsertTransaction & { userId: number }): Promise<Transaction> {
     const id = this.transactionId++;
-    const newTransaction: Transaction = { ...transaction, id };
+    const description = transaction.description || "";
+    const newTransaction: Transaction = { 
+      ...transaction, 
+      id,
+      description 
+    };
     this.transactions.set(id, newTransaction);
     
     // Update budget spent if it's an expense
     if (transaction.type === 'expense') {
       const budget = Array.from(this.budgets.values()).find(
-        (budget) => budget.category === transaction.category
+        (budget) => budget.userId === transaction.userId && budget.category === transaction.category
       );
       
-      if (budget) {
+      if (budget && budget.spent !== null) {
         await this.updateBudgetSpent(budget.id, budget.spent + transaction.amount);
       }
     }
@@ -192,9 +321,21 @@ export class MemStorage implements IStorage {
     return Array.from(this.budgets.values());
   }
   
+  async getBudgetsByUserId(userId: number): Promise<Budget[]> {
+    return Array.from(this.budgets.values()).filter(
+      (budget) => budget.userId === userId
+    );
+  }
+  
   async getBudgetByCategory(category: string): Promise<Budget | undefined> {
     return Array.from(this.budgets.values()).find(
       (budget) => budget.category === category
+    );
+  }
+  
+  async getBudgetByUserAndCategory(userId: number, category: string): Promise<Budget | undefined> {
+    return Array.from(this.budgets.values()).find(
+      (budget) => budget.userId === userId && budget.category === category
     );
   }
   

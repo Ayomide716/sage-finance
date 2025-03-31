@@ -1,17 +1,136 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertTransactionSchema, insertBudgetSchema } from "@shared/schema";
+import { insertTransactionSchema, insertBudgetSchema, insertUserSchema } from "@shared/schema";
+
+// Interface for authenticated request
+interface AuthenticatedRequest extends Request {
+  userId?: number;
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // All API routes will be prefixed with /api
   
+  // Authentication middleware
+  const authenticateUser = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    const { userId } = req.body;
+    
+    if (!userId) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    
+    const user = await storage.getUser(parseInt(userId));
+    
+    if (!user) {
+      return res.status(401).json({ message: "Invalid user" });
+    }
+    
+    req.userId = user.id;
+    next();
+  };
+  
+  // AUTHENTICATION
+  
+  // Login endpoint
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: "Username and password are required" });
+      }
+      
+      const user = await storage.getUserByUsername(username);
+      
+      if (!user || user.password !== password) {
+        return res.status(401).json({ message: "Invalid username or password" });
+      }
+      
+      res.status(200).json({ 
+        user: { 
+          id: user.id, 
+          username: user.username 
+        } 
+      });
+    } catch (error) {
+      console.error("Error logging in:", error);
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+  
+  // Register endpoint
+  app.post("/api/auth/register", async (req, res) => {
+    try {
+      const result = insertUserSchema.safeParse(req.body);
+      
+      if (!result.success) {
+        return res.status(400).json({ 
+          message: "Invalid user data",
+          errors: result.error.errors 
+        });
+      }
+      
+      // Check if username already exists
+      const existingUser = await storage.getUserByUsername(result.data.username);
+      
+      if (existingUser) {
+        return res.status(400).json({ message: "Username already taken" });
+      }
+      
+      const newUser = await storage.createUser(result.data);
+      
+      res.status(201).json({ 
+        user: { 
+          id: newUser.id, 
+          username: newUser.username 
+        } 
+      });
+    } catch (error) {
+      console.error("Error registering user:", error);
+      res.status(500).json({ message: "Registration failed" });
+    }
+  });
+  
+  // Get current user
+  app.get("/api/auth/user", async (req: AuthenticatedRequest, res) => {
+    try {
+      const userId = req.query.userId;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+      
+      const user = await storage.getUser(parseInt(userId as string));
+      
+      if (!user) {
+        return res.status(401).json({ message: "Invalid user" });
+      }
+      
+      res.status(200).json({ 
+        user: { 
+          id: user.id, 
+          username: user.username 
+        } 
+      });
+    } catch (error) {
+      console.error("Error getting user:", error);
+      res.status(500).json({ message: "Failed to get user" });
+    }
+  });
+  
   // TRANSACTIONS
   
   // Get all transactions
-  app.get("/api/transactions", async (req, res) => {
+  app.get("/api/transactions", async (req: AuthenticatedRequest, res) => {
     try {
-      const transactions = await storage.getAllTransactions();
+      const userId = req.query.userId as string;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+
+      const userIdNumber = parseInt(userId);
+      const transactions = await storage.getTransactionsByUserId(userIdNumber);
       res.status(200).json({ transactions });
     } catch (error) {
       console.error("Error getting transactions:", error);
@@ -20,9 +139,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Add a new transaction
-  app.post("/api/transactions", async (req, res) => {
+  app.post("/api/transactions", async (req: AuthenticatedRequest, res) => {
     try {
-      const result = insertTransactionSchema.safeParse(req.body);
+      const { userId, ...transactionData } = req.body;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+      
+      const result = insertTransactionSchema.safeParse(transactionData);
       
       if (!result.success) {
         return res.status(400).json({ 
@@ -33,7 +158,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const newTransaction = await storage.addTransaction({
         ...result.data,
-        userId: 1 // For simplicity, hardcode userId since we don't have auth
+        userId: parseInt(userId)
       });
       
       res.status(201).json(newTransaction);
@@ -46,9 +171,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // BUDGETS
   
   // Get all budgets
-  app.get("/api/budgets", async (req, res) => {
+  app.get("/api/budgets", async (req: AuthenticatedRequest, res) => {
     try {
-      const budgets = await storage.getAllBudgets();
+      const userId = req.query.userId as string;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+
+      const userIdNumber = parseInt(userId);
+      const budgets = await storage.getBudgetsByUserId(userIdNumber);
       res.status(200).json({ budgets });
     } catch (error) {
       console.error("Error getting budgets:", error);
@@ -57,9 +189,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Add a new budget
-  app.post("/api/budgets", async (req, res) => {
+  app.post("/api/budgets", async (req: AuthenticatedRequest, res) => {
     try {
-      const result = insertBudgetSchema.safeParse(req.body);
+      const { userId, ...budgetData } = req.body;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+      
+      const result = insertBudgetSchema.safeParse(budgetData);
       
       if (!result.success) {
         return res.status(400).json({ 
@@ -70,7 +208,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const newBudget = await storage.addBudget({
         ...result.data,
-        userId: 1, // For simplicity, hardcode userId since we don't have auth
+        userId: parseInt(userId),
         spent: 0
       });
       
@@ -82,20 +220,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update budget spent amount
-  app.patch("/api/budgets/:id/spent", async (req, res) => {
+  app.patch("/api/budgets/:id/spent", async (req: AuthenticatedRequest, res) => {
     try {
       const budgetId = parseInt(req.params.id);
-      const { spent } = req.body;
+      const { spent, userId } = req.body;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
       
       if (typeof spent !== 'number' || isNaN(spent) || spent < 0) {
         return res.status(400).json({ message: "Invalid spent amount" });
       }
       
-      const updatedBudget = await storage.updateBudgetSpent(budgetId, spent);
+      // Get the budget first to verify it belongs to the user
+      const userIdNumber = parseInt(userId);
+      const budgets = await storage.getBudgetsByUserId(userIdNumber);
+      const budget = budgets.find(b => b.id === budgetId);
       
-      if (!updatedBudget) {
-        return res.status(404).json({ message: "Budget not found" });
+      if (!budget) {
+        return res.status(404).json({ message: "Budget not found or not owned by user" });
       }
+      
+      const updatedBudget = await storage.updateBudgetSpent(budgetId, spent);
       
       res.status(200).json(updatedBudget);
     } catch (error) {
@@ -105,12 +252,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Financial data (combined data for dashboard)
-  app.get("/api/finance/data", async (req, res) => {
+  app.get("/api/finance/data", async (req: AuthenticatedRequest, res) => {
     try {
-      const transactions = await storage.getAllTransactions();
-      const budgets = await storage.getAllBudgets();
+      const userId = req.query.userId as string;
       
-      res.status(200).json({ transactions, budgets });
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+
+      const userIdNumber = parseInt(userId);
+      const transactions = await storage.getTransactionsByUserId(userIdNumber);
+      const budgets = await storage.getBudgetsByUserId(userIdNumber);
+      
+      // Get the user data but remove the password
+      const user = await storage.getUser(userIdNumber);
+      const userData = user ? { id: user.id, username: user.username } : null;
+      
+      res.status(200).json({ 
+        transactions, 
+        budgets,
+        user: userData
+      });
     } catch (error) {
       console.error("Error getting financial data:", error);
       res.status(500).json({ message: "Failed to retrieve financial data" });
