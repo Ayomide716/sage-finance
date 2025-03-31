@@ -81,16 +81,39 @@ const SummaryCards: React.FC = () => {
       .filter(t => t.type === 'expense')
       .reduce((sum, t) => sum + t.amount, 0);
     
-    // Calculate changes
-    const balanceChange = lastMonthIncome - lastMonthExpenses === 0 ? 0 :
-      ((monthlyIncome - monthlyExpenses) - (lastMonthIncome - lastMonthExpenses)) / 
-      Math.abs(lastMonthIncome - lastMonthExpenses) * 100;
+    // Calculate changes - handle edge cases better
+    // Balance change calculation
+    let balanceChange = 0;
+    const lastMonthNet = lastMonthIncome - lastMonthExpenses;
+    const thisMonthNet = monthlyIncome - monthlyExpenses;
     
-    const incomeChange = lastMonthIncome === 0 ? 0 : 
-      (monthlyIncome - lastMonthIncome) / lastMonthIncome * 100;
+    if (lastMonthNet !== 0) {
+      // If last month had non-zero net, calculate percent change
+      balanceChange = ((thisMonthNet - lastMonthNet) / Math.abs(lastMonthNet)) * 100;
+    } else if (lastMonthNet === 0 && thisMonthNet !== 0) {
+      // If last month was 0 but this month isn't, show 100% change
+      balanceChange = thisMonthNet > 0 ? 100 : -100;
+    }
     
-    const expenseChange = lastMonthExpenses === 0 ? 0 : 
-      (monthlyExpenses - lastMonthExpenses) / lastMonthExpenses * 100;
+    // Income change calculation
+    let incomeChange = 0;
+    if (lastMonthIncome > 0) {
+      // Normal calculation if last month had income
+      incomeChange = ((monthlyIncome - lastMonthIncome) / lastMonthIncome) * 100;
+    } else if (lastMonthIncome === 0 && monthlyIncome > 0) {
+      // New income this month
+      incomeChange = 100;
+    }
+    
+    // Expense change calculation
+    let expenseChange = 0;
+    if (lastMonthExpenses > 0) {
+      // Normal calculation if last month had expenses
+      expenseChange = ((monthlyExpenses - lastMonthExpenses) / lastMonthExpenses) * 100;
+    } else if (lastMonthExpenses === 0 && monthlyExpenses > 0) {
+      // New expenses this month
+      expenseChange = 100;
+    }
     
     return {
       totalBalance,
@@ -109,6 +132,18 @@ const SummaryCards: React.FC = () => {
       currency: 'USD',
       minimumFractionDigits: 2
     }).format(amount);
+  };
+  
+  // Format percentage change
+  const formatPercentage = (percent: number) => {
+    // If no change, show as 0%
+    if (percent === 0) return '0.0%';
+    
+    // If very large percentage, cap it
+    if (Math.abs(percent) > 1000) return '999+%';
+    
+    // Normal case: show with 1 decimal place
+    return `${Math.abs(percent).toFixed(1)}%`;
   };
 
   return (
@@ -141,7 +176,7 @@ const SummaryCards: React.FC = () => {
                     : "M19 14l-7 7m0 0l-7-7m7 7V3"} 
                 />
               </svg>
-              {Math.abs(summaryData.balanceChange).toFixed(1)}%
+              {formatPercentage(summaryData.balanceChange)}
             </span>
             <span className="text-textGray ml-2">from last month</span>
           </div>
@@ -174,7 +209,7 @@ const SummaryCards: React.FC = () => {
                     : "M19 14l-7 7m0 0l-7-7m7 7V3"} 
                 />
               </svg>
-              {Math.abs(summaryData.incomeChange).toFixed(1)}%
+              {formatPercentage(summaryData.incomeChange)}
             </span>
             <span className="text-textGray ml-2">from last month</span>
           </div>
@@ -207,7 +242,7 @@ const SummaryCards: React.FC = () => {
                     : "M19 14l-7 7m0 0l-7-7m7 7V3"} 
                 />
               </svg>
-              {Math.abs(summaryData.expenseChange).toFixed(1)}%
+              {formatPercentage(summaryData.expenseChange)}
             </span>
             <span className="text-textGray ml-2">from last month</span>
           </div>
