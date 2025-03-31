@@ -15,27 +15,27 @@ export default function Login() {
   const [activeTab, setActiveTab] = useState<string>('login');
 
   // Login form state
-  const [loginUsername, setLoginUsername] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   
   // Register form state
-  const [registerUsername, setRegisterUsername] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!loginUsername || !loginPassword) {
+    if (!loginEmail || !loginPassword) {
       toast({
         title: 'Missing Fields',
-        description: 'Please enter both username and password.',
+        description: 'Please enter both email and password.',
         variant: 'destructive',
       });
       return;
     }
     
-    const success = await login(loginUsername, loginPassword);
+    const success = await login(loginEmail, loginPassword);
     
     if (success) {
       toast({
@@ -46,7 +46,7 @@ export default function Login() {
     } else {
       toast({
         title: 'Login Failed',
-        description: 'Invalid username or password. Please try again.',
+        description: 'Invalid email or password. Please try again.',
         variant: 'destructive',
       });
     }
@@ -55,10 +55,21 @@ export default function Login() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!registerUsername || !registerPassword || !confirmPassword) {
+    if (!registerEmail || !registerPassword || !confirmPassword) {
       toast({
         title: 'Missing Fields',
         description: 'Please fill in all fields.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(registerEmail)) {
+      toast({
+        title: 'Invalid Email',
+        description: 'Please enter a valid email address.',
         variant: 'destructive',
       });
       return;
@@ -82,7 +93,7 @@ export default function Login() {
       return;
     }
     
-    const success = await register(registerUsername, registerPassword);
+    const success = await register(registerEmail, registerPassword);
     
     if (success) {
       toast({
@@ -93,7 +104,7 @@ export default function Login() {
     } else {
       toast({
         title: 'Registration Failed',
-        description: 'Username may already be taken. Please try a different one.',
+        description: 'Email may already be registered or another error occurred.',
         variant: 'destructive',
       });
     }
@@ -120,13 +131,13 @@ export default function Login() {
             <TabsContent value="login">
               <form onSubmit={handleLogin} className="space-y-4 mt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="login-username">Username</Label>
+                  <Label htmlFor="login-email">Email</Label>
                   <Input 
-                    id="login-username" 
-                    type="text" 
-                    placeholder="Enter your username"
-                    value={loginUsername}
-                    onChange={(e) => setLoginUsername(e.target.value)}
+                    id="login-email" 
+                    type="email" 
+                    placeholder="Enter your email"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
                     disabled={isLoading}
                   />
                 </div>
@@ -150,13 +161,13 @@ export default function Login() {
             <TabsContent value="register">
               <form onSubmit={handleRegister} className="space-y-4 mt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="register-username">Username</Label>
+                  <Label htmlFor="register-email">Email</Label>
                   <Input 
-                    id="register-username" 
-                    type="text" 
-                    placeholder="Choose a username"
-                    value={registerUsername}
-                    onChange={(e) => setRegisterUsername(e.target.value)}
+                    id="register-email" 
+                    type="email" 
+                    placeholder="Enter your email"
+                    value={registerEmail}
+                    onChange={(e) => setRegisterEmail(e.target.value)}
                     disabled={isLoading}
                   />
                 </div>

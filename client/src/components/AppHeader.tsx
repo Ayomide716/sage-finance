@@ -54,8 +54,8 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
   };
 
   const getUserInitials = () => {
-    if (!user || !user.username) return '?';
-    return user.username.substring(0, 2).toUpperCase();
+    if (!user || !user.displayName) return '?';
+    return user.displayName.substring(0, 2).toUpperCase();
   };
 
   return (
@@ -89,7 +89,7 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem className="font-medium">
-                    Hi, {user.username}
+                    Hi, {user.displayName}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout}>
                     Logout

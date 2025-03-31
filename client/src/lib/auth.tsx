@@ -1,16 +1,20 @@
 import { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import { User as FirebaseUser, onAuthStateChanged } from 'firebase/auth';
+import { auth, loginWithEmailAndPassword, registerWithEmailAndPassword, logoutUser } from './firebase';
 
+// Our app user interface
 export interface User {
-  id: number;
-  username: string;
+  id: string;
+  email: string | null;
+  displayName: string | null;
 }
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
-  login: (username: string, password: string) => Promise<boolean>;
-  register: (username: string, password: string) => Promise<boolean>;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -18,7 +22,7 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   login: async () => false,
   register: async () => false,
-  logout: () => {},
+  logout: async () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -27,64 +31,41 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+// Convert Firebase User to our app User
+const formatUser = (firebaseUser: FirebaseUser): User => {
+  return {
+    id: firebaseUser.uid,
+    email: firebaseUser.email,
+    displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+  };
+};
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check for stored user on mount
+  // Listen for auth state changes
   useEffect(() => {
-    const storedUser = localStorage.getItem('financeUser');
-    if (storedUser) {
-      try {
-        const userData = JSON.parse(storedUser);
-        setUser(userData);
-        // Verify the user is still valid on the server
-        checkUser(userData.id);
-      } catch (e) {
-        console.error('Error parsing stored user:', e);
-        localStorage.removeItem('financeUser');
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        // User is signed in
+        const formattedUser = formatUser(firebaseUser);
+        setUser(formattedUser);
+      } else {
+        // User is signed out
+        setUser(null);
       }
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    });
+
+    // Cleanup subscription
+    return () => unsubscribe();
   }, []);
 
-  const checkUser = async (userId: number) => {
-    try {
-      const res = await fetch(`/api/auth/user?userId=${userId}`, {
-        method: 'GET',
-        credentials: 'include'
-      });
-      
-      if (!res.ok) {
-        // User not found or invalid, clear localStorage
-        setUser(null);
-        localStorage.removeItem('financeUser');
-      }
-    } catch (error) {
-      console.error('Error checking user:', error);
-    }
-  };
-
-  const login = async (username: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
-      
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: 'include'
-      });
-      
-      if (!res.ok) {
-        return false;
-      }
-      
-      const data = await res.json();
-      setUser(data.user);
-      localStorage.setItem('financeUser', JSON.stringify(data.user));
+      const firebaseUser = await loginWithEmailAndPassword(email, password);
       return true;
     } catch (error) {
       console.error('Login error:', error);
@@ -94,26 +75,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const register = async (username: string, password: string): Promise<boolean> => {
+  const register = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
-      
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: 'include'
-      });
-      
-      if (!res.ok) {
-        return false;
-      }
-      
-      const data = await res.json();
-      setUser(data.user);
-      localStorage.setItem('financeUser', JSON.stringify(data.user));
+      const firebaseUser = await registerWithEmailAndPassword(email, password);
       return true;
     } catch (error) {
       console.error('Registration error:', error);
@@ -123,9 +88,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('financeUser');
+  const logout = async () => {
+    try {
+      await logoutUser();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
