@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
       <InstallBanner />
       
       {/* Main Content */}
-      <main className="container mx-auto px-4 pb-20 pt-6">
+      <main className="container mx-auto px-4 pb-24 md:pb-16 pt-6">
         {/* Responsive grid layout that adapts for all screen sizes */}
         <div className="mb-6">
           <SummaryCards />

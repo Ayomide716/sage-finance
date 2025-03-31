@@ -67,7 +67,7 @@ const Transactions: React.FC = () => {
   const uniqueCategories = Array.from(new Set(transactions.map((t) => t.category)));
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-6 pb-24 md:pb-10">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">Transactions</h1>
         <Button 
