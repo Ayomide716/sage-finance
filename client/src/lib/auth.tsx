@@ -1,6 +1,12 @@
 import { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { User as FirebaseUser, onAuthStateChanged } from 'firebase/auth';
-import { auth, loginWithEmailAndPassword, registerWithEmailAndPassword, logoutUser } from './firebase';
+import { 
+  auth, 
+  loginWithEmailAndPassword, 
+  registerWithEmailAndPassword, 
+  logoutUser,
+  signInWithGoogle 
+} from './firebase';
 
 // Our app user interface
 export interface User {
@@ -14,6 +20,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (email: string, password: string) => Promise<boolean>;
+  googleSignIn: () => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
@@ -22,6 +29,7 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   login: async () => false,
   register: async () => false,
+  googleSignIn: async () => false,
   logout: async () => {},
 });
 
@@ -65,7 +73,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
-      const firebaseUser = await loginWithEmailAndPassword(email, password);
+      await loginWithEmailAndPassword(email, password);
       return true;
     } catch (error) {
       console.error('Login error:', error);
@@ -78,10 +86,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const register = async (email: string, password: string): Promise<boolean> => {
     try {
       setIsLoading(true);
-      const firebaseUser = await registerWithEmailAndPassword(email, password);
+      await registerWithEmailAndPassword(email, password);
       return true;
     } catch (error) {
       console.error('Registration error:', error);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const googleSignIn = async (): Promise<boolean> => {
+    try {
+      setIsLoading(true);
+      await signInWithGoogle();
+      return true;
+    } catch (error) {
+      console.error('Google sign-in error:', error);
       return false;
     } finally {
       setIsLoading(false);
@@ -97,7 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, googleSignIn, logout }}>
       {children}
     </AuthContext.Provider>
   );
