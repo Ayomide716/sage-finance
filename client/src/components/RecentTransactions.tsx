@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { Card } from '@/components/ui/card';
 import TransactionItem from './TransactionItem';
 import { getTransactions } from '@/lib/db';
 import { Transaction } from '@shared/schema';
+import { useQuery } from '@tanstack/react-query';
 
 const RecentTransactions: React.FC = () => {
   const [, setLocation] = useLocation();
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    const loadTransactions = async () => {
-      const { transactions } = await getTransactions();
-      
+  
+  // Use React Query to fetch transactions
+  const { data, isLoading } = useQuery({
+    queryKey: ['transactions'],
+    queryFn: async () => {
+      const result = await getTransactions();
       // Sort by date and get the most recent
-      const sortedTransactions = transactions
+      return result.transactions
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 4); // Show only 4 most recent transactions
-      
-      setTransactions(sortedTransactions);
-    };
-    
-    loadTransactions();
-  }, []);
+    }
+  });
+  
+  // Store the transactions data
+  const transactions = data || [];
 
   const handleViewAllTransactions = () => {
     setLocation('/transactions');

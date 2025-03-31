@@ -8,32 +8,32 @@ import { getTransactions } from '@/lib/db';
 import { Transaction } from '@shared/schema';
 import { Dialog } from '@/components/ui/dialog';
 import AddTransactionModal from '@/components/AddTransactionModal';
+import { useQuery } from '@tanstack/react-query';
 
 const Transactions: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
   const [filterType, setFilterType] = useState<string>('all');
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
 
+  // Use React Query to fetch transactions
+  const { data, isLoading } = useQuery({
+    queryKey: ['transactions'],
+    queryFn: async () => {
+      const result = await getTransactions();
+      return result.transactions.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    }
+  });
+
+  // Store the transactions data
+  const transactions = data || [];
+
   useEffect(() => {
     // Set document title
     document.title = 'Transactions - FinTrack';
-    
-    const loadTransactions = async () => {
-      const { transactions } = await getTransactions();
-      
-      // Sort by date (newest first)
-      const sortedTransactions = transactions.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
-      
-      setTransactions(sortedTransactions);
-      setFilteredTransactions(sortedTransactions);
-    };
-    
-    loadTransactions();
   }, []);
 
   useEffect(() => {
@@ -53,17 +53,18 @@ const Transactions: React.FC = () => {
     // Filter by search term
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      result = result.filter(
-        (t) => t.description.toLowerCase().includes(term) || 
-               t.category.toLowerCase().includes(term)
-      );
+      result = result.filter((t) => {
+        const matchesDescription = t.description ? t.description.toLowerCase().includes(term) : false;
+        const matchesCategory = t.category.toLowerCase().includes(term);
+        return matchesDescription || matchesCategory;
+      });
     }
     
     setFilteredTransactions(result);
   }, [transactions, filterType, filterCategory, searchTerm]);
 
   // Get unique categories from transactions
-  const uniqueCategories = [...new Set(transactions.map((t) => t.category))];
+  const uniqueCategories = Array.from(new Set(transactions.map((t) => t.category)));
 
   return (
     <div className="container mx-auto px-4 py-6">

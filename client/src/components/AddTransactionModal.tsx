@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { addTransaction } from '@/lib/db';
 import { useToast } from '@/hooks/use-toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface AddTransactionModalProps {
   onClose: () => void;
@@ -13,11 +14,39 @@ interface AddTransactionModalProps {
 
 const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [transactionType, setTransactionType] = useState<'expense' | 'income'>('expense');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  
+  // Create a mutation for adding transactions
+  const addTransactionMutation = useMutation({
+    mutationFn: async (transactionData: any) => {
+      return await addTransaction(transactionData);
+    },
+    onSuccess: () => {
+      // Invalidate and refetch any queries that depend on transaction data
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      
+      toast({
+        title: 'Transaction added',
+        description: 'Your transaction has been successfully recorded.',
+        variant: 'success'
+      });
+      
+      // Close the modal
+      onClose();
+    },
+    onError: () => {
+      toast({
+        title: 'Error',
+        description: 'Failed to add transaction. Please try again.',
+        variant: 'destructive'
+      });
+    }
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,32 +69,14 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
       return;
     }
     
-    try {
-      await addTransaction({
-        type: transactionType,
-        amount: parseFloat(amount),
-        category,
-        description,
-        date
-      });
-      
-      toast({
-        title: 'Transaction added',
-        description: 'Your transaction has been successfully recorded.',
-        variant: 'success'
-      });
-      
-      onClose();
-      
-      // Force a refresh to update the UI
-      window.location.reload();
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to add transaction. Please try again.',
-        variant: 'destructive'
-      });
-    }
+    // Execute the mutation
+    addTransactionMutation.mutate({
+      type: transactionType,
+      amount: parseFloat(amount),
+      category,
+      description,
+      date
+    });
   };
 
   return (
