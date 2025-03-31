@@ -7,28 +7,64 @@ import Dashboard from "@/pages/Dashboard";
 import Transactions from "@/pages/Transactions";
 import Budgets from "@/pages/Budgets";
 import Reports from "@/pages/Reports";
+import Login from "@/pages/Login";
 import BottomNavigation from "@/components/BottomNavigation";
 import AppHeader from "@/components/AppHeader";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import { useEffect, useState } from "react";
 import { initDB } from "@/lib/db";
 import { initPWA } from "@/lib/pwa";
+import { AuthProvider, useAuth } from "@/lib/auth";
 
 function Router() {
+  const { user } = useAuth();
+  
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
-      <Route path="/transactions" component={Transactions} />
-      <Route path="/budgets" component={Budgets} />
-      <Route path="/reports" component={Reports} />
+      <Route path="/login" component={Login} />
+      
+      <Route path="/">
+        {() => (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        )}
+      </Route>
+      
+      <Route path="/transactions">
+        {() => (
+          <ProtectedRoute>
+            <Transactions />
+          </ProtectedRoute>
+        )}
+      </Route>
+      
+      <Route path="/budgets">
+        {() => (
+          <ProtectedRoute>
+            <Budgets />
+          </ProtectedRoute>
+        )}
+      </Route>
+      
+      <Route path="/reports">
+        {() => (
+          <ProtectedRoute>
+            <Reports />
+          </ProtectedRoute>
+        )}
+      </Route>
+      
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-function App() {
+function AppContent() {
   const [isDbInitialized, setIsDbInitialized] = useState(false);
   const [isInitializing, setIsInitializing] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     // Initialize the database and PWA features
@@ -64,15 +100,23 @@ function App() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="flex flex-col min-h-screen bg-mediumGray">
-        <AppHeader />
-        <div className="flex-1 pb-16">
-          <Router />
-        </div>
-        <BottomNavigation />
+    <div className="flex flex-col min-h-screen bg-mediumGray">
+      <AppHeader />
+      <div className="flex-1 pb-16">
+        <Router />
       </div>
-      <Toaster />
+      {user && <BottomNavigation />}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <AppContent />
+        <Toaster />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
