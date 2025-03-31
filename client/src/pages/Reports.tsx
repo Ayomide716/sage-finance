@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getFinancialData } from '@/lib/db';
 import { Transaction, Budget } from '@shared/schema';
 import { 
@@ -14,6 +13,7 @@ const Reports: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [timeFrame, setTimeFrame] = useState('month');
+  const [reportType, setReportType] = useState('overview');
   const [expensesByCategory, setExpensesByCategory] = useState<any[]>([]);
   const [incomeVsExpense, setIncomeVsExpense] = useState<any[]>([]);
   const [trendData, setTrendData] = useState<any[]>([]);
@@ -195,118 +195,67 @@ const Reports: React.FC = () => {
     return null;
   };
 
-  return (
-    <div className="container mx-auto px-4 py-6 pb-24 md:pb-20">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <h1 className="text-2xl font-semibold">Financial Reports</h1>
-        <div className="w-full sm:w-40">
-          <Select value={timeFrame} onValueChange={setTimeFrame}>
-            <SelectTrigger>
-              <SelectValue placeholder="Time frame" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="week">This Week</SelectItem>
-              <SelectItem value="month">This Month</SelectItem>
-              <SelectItem value="quarter">Last 3 Months</SelectItem>
-              <SelectItem value="year">This Year</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      <Tabs defaultValue="overview" className="mb-6">
-        <TabsList className="mb-4 w-full flex justify-start">
-          <TabsTrigger value="overview" className="flex-1 sm:flex-none">Overview</TabsTrigger>
-          <TabsTrigger value="expenses" className="flex-1 sm:flex-none">Expenses</TabsTrigger>
-          <TabsTrigger value="trends" className="flex-1 sm:flex-none">Trends</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="overview">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Income vs. Expenses */}
-            <Card className="p-5">
-              <h2 className="text-lg font-semibold mb-4">Income vs. Expenses</h2>
-              {incomeVsExpense.length > 0 ? (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={incomeVsExpense}
-                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis tickFormatter={(value) => `$${value}`} />
-                      <Tooltip content={<CustomTooltip />} />
-                      <Bar dataKey="value" name="Amount">
-                        {incomeVsExpense.map((entry, index) => (
-                          <Cell 
-                            key={`cell-${index}`} 
-                            fill={entry.name === 'Income' ? '#10b981' : '#ef4444'} 
-                          />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center h-64">
-                  <p className="text-textGray">No data available</p>
-                </div>
-              )}
-            </Card>
-            
-            {/* Expenses by Category */}
-            <Card className="p-5">
-              <h2 className="text-lg font-semibold mb-4">Expenses by Category</h2>
-              {expensesByCategory.length > 0 ? (
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={expensesByCategory}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {expensesByCategory.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                      <Legend />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center h-64">
-                  <p className="text-textGray">No expense data available</p>
-                </div>
-              )}
-            </Card>
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="expenses">
+  // Render different report content based on reportType
+  const renderReportContent = () => {
+    if (reportType === 'overview') {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Income vs. Expenses */}
           <Card className="p-5">
-            <h2 className="text-lg font-semibold mb-4">Detailed Expenses</h2>
-            {expensesByCategory.length > 0 ? (
-              <div className="h-80">
+            <h2 className="text-lg font-semibold mb-4">Income vs. Expenses</h2>
+            {incomeVsExpense.length > 0 ? (
+              <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
-                    data={expensesByCategory}
-                    layout="vertical"
-                    margin={{ top: 20, right: 20, left: 80, bottom: 5 }}
+                    data={incomeVsExpense}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis type="number" tickFormatter={(value) => `$${value}`} />
-                    <YAxis type="category" dataKey="name" width={80} />
-                    <Tooltip formatter={(value) => formatCurrency(value as number)} />
-                    <Bar dataKey="value" fill="#2563eb" name="Amount" />
+                    <XAxis dataKey="name" />
+                    <YAxis tickFormatter={(value) => `$${value}`} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="value" name="Amount">
+                      {incomeVsExpense.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.name === 'Income' ? '#10b981' : '#ef4444'} 
+                        />
+                      ))}
+                    </Bar>
                   </BarChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-64">
+                <p className="text-textGray">No data available</p>
+              </div>
+            )}
+          </Card>
+          
+          {/* Expenses by Category */}
+          <Card className="p-5">
+            <h2 className="text-lg font-semibold mb-4">Expenses by Category</h2>
+            {expensesByCategory.length > 0 ? (
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={expensesByCategory}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {expensesByCategory.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => formatCurrency(value as number)} />
+                    <Legend />
+                  </PieChart>
                 </ResponsiveContainer>
               </div>
             ) : (
@@ -315,36 +264,102 @@ const Reports: React.FC = () => {
               </div>
             )}
           </Card>
-        </TabsContent>
-        
-        <TabsContent value="trends">
-          <Card className="p-5">
-            <h2 className="text-lg font-semibold mb-4">Income & Expense Trends</h2>
-            {trendData.length > 0 ? (
-              <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    data={trendData}
-                    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis tickFormatter={(value) => `$${value}`} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend />
-                    <Line type="monotone" dataKey="Income" stroke="#10b981" activeDot={{ r: 8 }} strokeWidth={2} />
-                    <Line type="monotone" dataKey="Expenses" stroke="#ef4444" activeDot={{ r: 8 }} strokeWidth={2} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-64">
-                <p className="text-textGray">No trend data available</p>
-              </div>
-            )}
-          </Card>
-        </TabsContent>
-      </Tabs>
+        </div>
+      );
+    } else if (reportType === 'expenses') {
+      return (
+        <Card className="p-5">
+          <h2 className="text-lg font-semibold mb-4">Detailed Expenses</h2>
+          {expensesByCategory.length > 0 ? (
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={expensesByCategory}
+                  layout="vertical"
+                  margin={{ top: 20, right: 20, left: 80, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis type="number" tickFormatter={(value) => `$${value}`} />
+                  <YAxis type="category" dataKey="name" width={80} />
+                  <Tooltip formatter={(value) => formatCurrency(value as number)} />
+                  <Bar dataKey="value" fill="#2563eb" name="Amount" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-64">
+              <p className="text-textGray">No expense data available</p>
+            </div>
+          )}
+        </Card>
+      );
+    } else if (reportType === 'trends') {
+      return (
+        <Card className="p-5">
+          <h2 className="text-lg font-semibold mb-4">Income & Expense Trends</h2>
+          {trendData.length > 0 ? (
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={trendData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis tickFormatter={(value) => `$${value}`} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend />
+                  <Line type="monotone" dataKey="Income" stroke="#10b981" activeDot={{ r: 8 }} strokeWidth={2} />
+                  <Line type="monotone" dataKey="Expenses" stroke="#ef4444" activeDot={{ r: 8 }} strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-64">
+              <p className="text-textGray">No trend data available</p>
+            </div>
+          )}
+        </Card>
+      );
+    }
+    
+    return null;
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-6 pb-24 md:pb-20">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <h1 className="text-2xl font-semibold">Financial Reports</h1>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="w-full sm:w-40">
+            <Select value={reportType} onValueChange={setReportType}>
+              <SelectTrigger>
+                <SelectValue placeholder="Report Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="overview">Overview</SelectItem>
+                <SelectItem value="expenses">Expenses</SelectItem>
+                <SelectItem value="trends">Trends</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="w-full sm:w-40">
+            <Select value={timeFrame} onValueChange={setTimeFrame}>
+              <SelectTrigger>
+                <SelectValue placeholder="Time frame" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="week">This Week</SelectItem>
+                <SelectItem value="month">This Month</SelectItem>
+                <SelectItem value="quarter">Last 3 Months</SelectItem>
+                <SelectItem value="year">This Year</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
+
+      {renderReportContent()}
     </div>
   );
 };
