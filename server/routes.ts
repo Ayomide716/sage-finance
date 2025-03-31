@@ -13,13 +13,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Authentication middleware
   const authenticateUser = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-    const { userId } = req.body;
+    // Check for userId in query params (for GET requests)
+    // or in the request body (for POST/PUT/PATCH requests)
+    const userId = req.query.userId || req.body.userId;
     
     if (!userId) {
       return res.status(401).json({ message: "Authentication required" });
     }
     
-    const user = await storage.getUser(parseInt(userId));
+    const user = await storage.getUser(parseInt(userId as string));
     
     if (!user) {
       return res.status(401).json({ message: "Invalid user" });

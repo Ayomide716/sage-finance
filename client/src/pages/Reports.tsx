@@ -196,10 +196,10 @@ const Reports: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="container mx-auto px-4 py-6 pb-20">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h1 className="text-2xl font-semibold">Financial Reports</h1>
-        <div className="w-40">
+        <div className="w-full sm:w-40">
           <Select value={timeFrame} onValueChange={setTimeFrame}>
             <SelectTrigger>
               <SelectValue placeholder="Time frame" />
@@ -215,10 +215,10 @@ const Reports: React.FC = () => {
       </div>
 
       <Tabs defaultValue="overview" className="mb-6">
-        <TabsList className="mb-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="expenses">Expenses</TabsTrigger>
-          <TabsTrigger value="trends">Trends</TabsTrigger>
+        <TabsList className="mb-4 w-full flex justify-start">
+          <TabsTrigger value="overview" className="flex-1 sm:flex-none">Overview</TabsTrigger>
+          <TabsTrigger value="expenses" className="flex-1 sm:flex-none">Expenses</TabsTrigger>
+          <TabsTrigger value="trends" className="flex-1 sm:flex-none">Trends</TabsTrigger>
         </TabsList>
         
         <TabsContent value="overview">
@@ -299,11 +299,11 @@ const Reports: React.FC = () => {
                   <BarChart
                     data={expensesByCategory}
                     layout="vertical"
-                    margin={{ top: 20, right: 30, left: 100, bottom: 5 }}
+                    margin={{ top: 20, right: 20, left: 80, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis type="number" tickFormatter={(value) => `$${value}`} />
-                    <YAxis type="category" dataKey="name" width={100} />
+                    <YAxis type="category" dataKey="name" width={80} />
                     <Tooltip formatter={(value) => formatCurrency(value as number)} />
                     <Bar dataKey="value" fill="#2563eb" name="Amount" />
                   </BarChart>
