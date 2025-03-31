@@ -327,7 +327,7 @@ const Reports: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 pb-24 md:pb-20">
+    <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h1 className="text-2xl font-semibold">Financial Reports</h1>
         <div className="flex flex-col sm:flex-row gap-4">

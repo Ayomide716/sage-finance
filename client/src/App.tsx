@@ -8,7 +8,6 @@ import Transactions from "@/pages/Transactions";
 import Budgets from "@/pages/Budgets";
 import Reports from "@/pages/Reports";
 import Login from "@/pages/Login";
-import BottomNavigation from "@/components/BottomNavigation";
 import AppHeader from "@/components/AppHeader";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useEffect, useState } from "react";
@@ -102,10 +101,9 @@ function AppContent() {
   return (
     <div className="flex flex-col min-h-screen bg-mediumGray">
       <AppHeader />
-      <div className="flex-1 pb-16">
+      <div className="flex-1">
         <Router />
       </div>
-      {user && <BottomNavigation />}
     </div>
   );
 }
