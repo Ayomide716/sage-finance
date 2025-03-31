@@ -1,7 +1,8 @@
 import { 
   User, InsertUser, 
   Transaction, InsertTransaction, 
-  Budget, InsertBudget 
+  Budget, InsertBudget,
+  Goal, InsertGoal
 } from "@shared/schema";
 
 // Interface for storage operations
@@ -27,23 +28,36 @@ export interface IStorage {
   getBudgetByUserAndCategory(userId: number, category: string): Promise<Budget | undefined>;
   addBudget(budget: InsertBudget & { spent: number, userId: number }): Promise<Budget>;
   updateBudgetSpent(id: number, spent: number): Promise<Budget | undefined>;
+  
+  // Goal operations
+  getAllGoals(): Promise<Goal[]>;
+  getGoalsByUserId(userId: number): Promise<Goal[]>;
+  getGoalById(id: number): Promise<Goal | undefined>;
+  addGoal(goal: InsertGoal & { userId: number }): Promise<Goal>;
+  updateGoalProgress(id: number, currentAmount: number): Promise<Goal | undefined>;
+  updateGoalCompletion(id: number, isCompleted: boolean): Promise<Goal | undefined>;
+  deleteGoal(id: number): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private transactions: Map<number, Transaction>;
   private budgets: Map<number, Budget>;
+  private goals: Map<number, Goal>;
   private userId: number;
   private transactionId: number;
   private budgetId: number;
+  private goalId: number;
 
   constructor() {
     this.users = new Map();
     this.transactions = new Map();
     this.budgets = new Map();
+    this.goals = new Map();
     this.userId = 1;
     this.transactionId = 1;
     this.budgetId = 1;
+    this.goalId = 1;
     
     // Initialize with default data
     this.initializeDefaultData();
@@ -237,6 +251,50 @@ export class MemStorage implements IStorage {
       spent: 120.50,
       userId: 3
     });
+    
+    // Add some default goals for users
+    // Demo user goals
+    this.addGoal({
+      name: 'Emergency Fund',
+      targetAmount: 5000,
+      currentAmount: 2500,
+      deadline: new Date(Date.now() + 86400000 * 90).toISOString(), // 90 days from now
+      category: 'Savings',
+      note: 'Build up 3 months of expenses for emergencies',
+      userId: 1
+    });
+    
+    this.addGoal({
+      name: 'Summer Vacation',
+      targetAmount: 1200,
+      currentAmount: 350,
+      deadline: new Date(Date.now() + 86400000 * 180).toISOString(), // 180 days from now
+      category: 'Travel',
+      note: 'Beach trip in July',
+      userId: 1
+    });
+    
+    // Alice goals
+    this.addGoal({
+      name: 'New Laptop',
+      targetAmount: 1500,
+      currentAmount: 750,
+      deadline: new Date(Date.now() + 86400000 * 60).toISOString(), // 60 days from now
+      category: 'Electronics',
+      note: 'For freelance work',
+      userId: 2
+    });
+    
+    // Bob goals
+    this.addGoal({
+      name: 'Car Down Payment',
+      targetAmount: 4000,
+      currentAmount: 1500,
+      deadline: new Date(Date.now() + 86400000 * 120).toISOString(), // 120 days from now
+      category: 'Transportation',
+      note: 'Saving for a new car',
+      userId: 3
+    });
   }
 
   // User operations
@@ -356,6 +414,75 @@ export class MemStorage implements IStorage {
     const updatedBudget: Budget = { ...budget, spent };
     this.budgets.set(id, updatedBudget);
     return updatedBudget;
+  }
+
+  // Goal operations
+  async getAllGoals(): Promise<Goal[]> {
+    return Array.from(this.goals.values());
+  }
+
+  async getGoalsByUserId(userId: number): Promise<Goal[]> {
+    return Array.from(this.goals.values()).filter(
+      (goal) => goal.userId === userId
+    );
+  }
+
+  async getGoalById(id: number): Promise<Goal | undefined> {
+    return this.goals.get(id);
+  }
+
+  async addGoal(goal: InsertGoal & { userId: number }): Promise<Goal> {
+    const id = this.goalId++;
+    const isCompleted = false;
+    const currentAmount = goal.currentAmount || 0;
+    const note = goal.note || "";
+    
+    const newGoal: Goal = {
+      ...goal,
+      id,
+      isCompleted,
+      currentAmount,
+      note
+    };
+    
+    this.goals.set(id, newGoal);
+    return newGoal;
+  }
+
+  async updateGoalProgress(id: number, currentAmount: number): Promise<Goal | undefined> {
+    const goal = this.goals.get(id);
+    
+    if (!goal) {
+      return undefined;
+    }
+    
+    // Automatically update isCompleted status if target is met
+    const isCompleted = currentAmount >= goal.targetAmount;
+    
+    const updatedGoal: Goal = { 
+      ...goal, 
+      currentAmount, 
+      isCompleted 
+    };
+    
+    this.goals.set(id, updatedGoal);
+    return updatedGoal;
+  }
+
+  async updateGoalCompletion(id: number, isCompleted: boolean): Promise<Goal | undefined> {
+    const goal = this.goals.get(id);
+    
+    if (!goal) {
+      return undefined;
+    }
+    
+    const updatedGoal: Goal = { ...goal, isCompleted };
+    this.goals.set(id, updatedGoal);
+    return updatedGoal;
+  }
+
+  async deleteGoal(id: number): Promise<boolean> {
+    return this.goals.delete(id);
   }
 }
 

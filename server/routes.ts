@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertTransactionSchema, insertBudgetSchema, insertUserSchema } from "@shared/schema";
+import { insertTransactionSchema, insertBudgetSchema, insertUserSchema, insertGoalSchema } from "@shared/schema";
 
 // Interface for authenticated request
 interface AuthenticatedRequest extends Request {
@@ -253,6 +253,186 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // GOALS
+  
+  // Get all goals for a user
+  app.get("/api/goals", async (req: AuthenticatedRequest, res) => {
+    try {
+      const userId = req.query.userId as string;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+
+      const userIdNumber = parseInt(userId);
+      const goals = await storage.getGoalsByUserId(userIdNumber);
+      res.status(200).json({ goals });
+    } catch (error) {
+      console.error("Error getting goals:", error);
+      res.status(500).json({ message: "Failed to retrieve goals" });
+    }
+  });
+  
+  // Get a single goal by ID
+  app.get("/api/goals/:id", async (req: AuthenticatedRequest, res) => {
+    try {
+      const goalId = parseInt(req.params.id);
+      const userId = req.query.userId as string;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+      
+      const goal = await storage.getGoalById(goalId);
+      
+      if (!goal) {
+        return res.status(404).json({ message: "Goal not found" });
+      }
+      
+      // Verify the goal belongs to the user
+      if (goal.userId !== parseInt(userId)) {
+        return res.status(403).json({ message: "Not authorized to access this goal" });
+      }
+      
+      res.status(200).json(goal);
+    } catch (error) {
+      console.error("Error getting goal:", error);
+      res.status(500).json({ message: "Failed to retrieve goal" });
+    }
+  });
+  
+  // Add a new goal
+  app.post("/api/goals", async (req: AuthenticatedRequest, res) => {
+    try {
+      const { userId, ...goalData } = req.body;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+      
+      const result = insertGoalSchema.safeParse(goalData);
+      
+      if (!result.success) {
+        return res.status(400).json({ 
+          message: "Invalid goal data",
+          errors: result.error.errors 
+        });
+      }
+      
+      const newGoal = await storage.addGoal({
+        ...result.data,
+        userId: parseInt(userId)
+      });
+      
+      res.status(201).json(newGoal);
+    } catch (error) {
+      console.error("Error adding goal:", error);
+      res.status(500).json({ message: "Failed to add goal" });
+    }
+  });
+  
+  // Update goal progress
+  app.patch("/api/goals/:id/progress", async (req: AuthenticatedRequest, res) => {
+    try {
+      const goalId = parseInt(req.params.id);
+      const { currentAmount, userId } = req.body;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+      
+      if (typeof currentAmount !== 'number' || isNaN(currentAmount) || currentAmount < 0) {
+        return res.status(400).json({ message: "Invalid amount" });
+      }
+      
+      // Get the goal first to verify it belongs to the user
+      const goal = await storage.getGoalById(goalId);
+      
+      if (!goal) {
+        return res.status(404).json({ message: "Goal not found" });
+      }
+      
+      if (goal.userId !== parseInt(userId)) {
+        return res.status(403).json({ message: "Not authorized to update this goal" });
+      }
+      
+      const updatedGoal = await storage.updateGoalProgress(goalId, currentAmount);
+      
+      res.status(200).json(updatedGoal);
+    } catch (error) {
+      console.error("Error updating goal progress:", error);
+      res.status(500).json({ message: "Failed to update goal" });
+    }
+  });
+  
+  // Update goal completion status
+  app.patch("/api/goals/:id/complete", async (req: AuthenticatedRequest, res) => {
+    try {
+      const goalId = parseInt(req.params.id);
+      const { isCompleted, userId } = req.body;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+      
+      if (typeof isCompleted !== 'boolean') {
+        return res.status(400).json({ message: "Invalid completion status" });
+      }
+      
+      // Get the goal first to verify it belongs to the user
+      const goal = await storage.getGoalById(goalId);
+      
+      if (!goal) {
+        return res.status(404).json({ message: "Goal not found" });
+      }
+      
+      if (goal.userId !== parseInt(userId)) {
+        return res.status(403).json({ message: "Not authorized to update this goal" });
+      }
+      
+      const updatedGoal = await storage.updateGoalCompletion(goalId, isCompleted);
+      
+      res.status(200).json(updatedGoal);
+    } catch (error) {
+      console.error("Error updating goal completion:", error);
+      res.status(500).json({ message: "Failed to update goal" });
+    }
+  });
+  
+  // Delete a goal
+  app.delete("/api/goals/:id", async (req: AuthenticatedRequest, res) => {
+    try {
+      const goalId = parseInt(req.params.id);
+      const userId = req.query.userId as string;
+      
+      if (!userId) {
+        return res.status(401).json({ message: "User ID required" });
+      }
+      
+      // Get the goal first to verify it belongs to the user
+      const goal = await storage.getGoalById(goalId);
+      
+      if (!goal) {
+        return res.status(404).json({ message: "Goal not found" });
+      }
+      
+      if (goal.userId !== parseInt(userId)) {
+        return res.status(403).json({ message: "Not authorized to delete this goal" });
+      }
+      
+      const success = await storage.deleteGoal(goalId);
+      
+      if (success) {
+        res.status(200).json({ message: "Goal deleted successfully" });
+      } else {
+        res.status(500).json({ message: "Failed to delete goal" });
+      }
+    } catch (error) {
+      console.error("Error deleting goal:", error);
+      res.status(500).json({ message: "Failed to delete goal" });
+    }
+  });
+
   // Financial data (combined data for dashboard)
   app.get("/api/finance/data", async (req: AuthenticatedRequest, res) => {
     try {
@@ -265,6 +445,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userIdNumber = parseInt(userId);
       const transactions = await storage.getTransactionsByUserId(userIdNumber);
       const budgets = await storage.getBudgetsByUserId(userIdNumber);
+      const goals = await storage.getGoalsByUserId(userIdNumber);
       
       // Get the user data but remove the password
       const user = await storage.getUser(userIdNumber);
@@ -273,6 +454,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(200).json({ 
         transactions, 
         budgets,
+        goals,
         user: userData
       });
     } catch (error) {

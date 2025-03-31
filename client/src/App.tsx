@@ -7,6 +7,7 @@ import Dashboard from "@/pages/Dashboard";
 import Transactions from "@/pages/Transactions";
 import Budgets from "@/pages/Budgets";
 import Reports from "@/pages/Reports";
+import Goals from "@/pages/Goals";
 import Login from "@/pages/Login";
 import AppHeader from "@/components/AppHeader";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -51,6 +52,14 @@ function Router() {
         {() => (
           <ProtectedRoute>
             <Reports />
+          </ProtectedRoute>
+        )}
+      </Route>
+      
+      <Route path="/goals">
+        {() => (
+          <ProtectedRoute>
+            <Goals />
           </ProtectedRoute>
         )}
       </Route>

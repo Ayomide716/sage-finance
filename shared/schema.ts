@@ -53,6 +53,29 @@ export const insertBudgetSchema = createInsertSchema(budgets)
     amount: true,
   });
 
+// Financial Goals schema
+export const goals = pgTable("goals", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  targetAmount: real("target_amount").notNull(),
+  currentAmount: real("current_amount").default(0),
+  deadline: text("deadline").notNull(), // Store as ISO string format
+  category: text("category").notNull(), // e.g., 'retirement', 'vacation', 'house', 'education', etc.
+  note: text("note").default(""),
+  isCompleted: boolean("is_completed").default(false),
+  userId: integer("user_id").references(() => users.id).notNull(),
+});
+
+export const insertGoalSchema = createInsertSchema(goals)
+  .pick({
+    name: true,
+    targetAmount: true,
+    currentAmount: true,
+    deadline: true,
+    category: true,
+    note: true,
+  });
+
 // Type definitions
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -62,3 +85,6 @@ export type InsertTransaction = z.infer<typeof insertTransactionSchema>;
 
 export type Budget = typeof budgets.$inferSelect;
 export type InsertBudget = z.infer<typeof insertBudgetSchema>;
+
+export type Goal = typeof goals.$inferSelect;
+export type InsertGoal = z.infer<typeof insertGoalSchema>;
