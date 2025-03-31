@@ -4,8 +4,7 @@ import {
   auth, 
   loginWithEmailAndPassword, 
   registerWithEmailAndPassword, 
-  logoutUser,
-  signInWithGoogle 
+  logoutUser
 } from './firebase';
 
 // Our app user interface
@@ -20,7 +19,6 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (email: string, password: string) => Promise<boolean>;
-  googleSignIn: () => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
@@ -29,7 +27,6 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   login: async () => false,
   register: async () => false,
-  googleSignIn: async () => false,
   logout: async () => {},
 });
 
@@ -96,19 +93,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const googleSignIn = async (): Promise<boolean> => {
-    try {
-      setIsLoading(true);
-      await signInWithGoogle();
-      return true;
-    } catch (error) {
-      console.error('Google sign-in error:', error);
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const logout = async () => {
     try {
       await logoutUser();
@@ -118,7 +102,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, googleSignIn, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

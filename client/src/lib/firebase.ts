@@ -5,8 +5,6 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   signOut, 
-  GoogleAuthProvider, 
-  signInWithPopup,
   User as FirebaseUser 
 } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
@@ -23,12 +21,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
-// Initialize Google Authentication Provider
-const googleProvider = new GoogleAuthProvider();
-googleProvider.setCustomParameters({
-  prompt: 'select_account'
-});
 
 // Initialize Analytics in browser environment only
 let analytics: any = null;
@@ -51,13 +43,8 @@ export async function registerWithEmailAndPassword(email: string, password: stri
   return userCredential.user;
 }
 
-export async function signInWithGoogle(): Promise<FirebaseUser> {
-  const userCredential = await signInWithPopup(auth, googleProvider);
-  return userCredential.user;
-}
-
 export async function logoutUser(): Promise<void> {
   return signOut(auth);
 }
 
-export { auth, analytics, googleProvider };
+export { auth, analytics };
