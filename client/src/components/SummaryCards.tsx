@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { getFinancialData } from '@/lib/db';
+import { useQuery } from '@tanstack/react-query';
+import { Transaction } from '@shared/schema';
 
 interface SummaryData {
   totalBalance: number;
@@ -12,83 +14,93 @@ interface SummaryData {
 }
 
 const SummaryCards: React.FC = () => {
-  const [summaryData, setSummaryData] = useState<SummaryData>({
-    totalBalance: 0,
-    monthlyIncome: 0,
-    monthlyExpenses: 0,
-    balanceChange: 0,
-    incomeChange: 0,
-    expenseChange: 0
+  // Use React Query to fetch financial data
+  const { data, isLoading } = useQuery({
+    queryKey: ['financial-data'],
+    queryFn: async () => {
+      const result = await getFinancialData();
+      return result.transactions;
+    }
   });
-
-  useEffect(() => {
-    const loadSummaryData = async () => {
-      const { transactions } = await getFinancialData();
-      
-      // Calculate total balance
-      const totalBalance = transactions.reduce((sum, t) => 
-        sum + (t.type === 'income' ? t.amount : -t.amount), 0);
-      
-      // Get this month's transactions
-      const now = new Date();
-      const thisMonth = now.getMonth();
-      const thisYear = now.getFullYear();
-      
-      const thisMonthTransactions = transactions.filter(t => {
-        const date = new Date(t.date);
-        return date.getMonth() === thisMonth && date.getFullYear() === thisYear;
-      });
-      
-      // Last month's transactions
-      const lastMonth = thisMonth === 0 ? 11 : thisMonth - 1;
-      const lastMonthYear = thisMonth === 0 ? thisYear - 1 : thisYear;
-      
-      const lastMonthTransactions = transactions.filter(t => {
-        const date = new Date(t.date);
-        return date.getMonth() === lastMonth && date.getFullYear() === lastMonthYear;
-      });
-      
-      // Calculate monthly income and expenses
-      const monthlyIncome = thisMonthTransactions
-        .filter(t => t.type === 'income')
-        .reduce((sum, t) => sum + t.amount, 0);
-      
-      const monthlyExpenses = thisMonthTransactions
-        .filter(t => t.type === 'expense')
-        .reduce((sum, t) => sum + t.amount, 0);
-      
-      // Calculate last month's income and expenses
-      const lastMonthIncome = lastMonthTransactions
-        .filter(t => t.type === 'income')
-        .reduce((sum, t) => sum + t.amount, 0);
-      
-      const lastMonthExpenses = lastMonthTransactions
-        .filter(t => t.type === 'expense')
-        .reduce((sum, t) => sum + t.amount, 0);
-      
-      // Calculate changes
-      const balanceChange = lastMonthIncome - lastMonthExpenses === 0 ? 0 :
-        ((monthlyIncome - monthlyExpenses) - (lastMonthIncome - lastMonthExpenses)) / 
-        Math.abs(lastMonthIncome - lastMonthExpenses) * 100;
-      
-      const incomeChange = lastMonthIncome === 0 ? 0 : 
-        (monthlyIncome - lastMonthIncome) / lastMonthIncome * 100;
-      
-      const expenseChange = lastMonthExpenses === 0 ? 0 : 
-        (monthlyExpenses - lastMonthExpenses) / lastMonthExpenses * 100;
-      
-      setSummaryData({
-        totalBalance,
-        monthlyIncome,
-        monthlyExpenses,
-        balanceChange,
-        incomeChange,
-        expenseChange
-      });
+  
+  // Calculate summary data based on transactions
+  const summaryData = useMemo(() => {
+    // Default summary data
+    const defaultSummary: SummaryData = {
+      totalBalance: 0,
+      monthlyIncome: 0,
+      monthlyExpenses: 0,
+      balanceChange: 0,
+      incomeChange: 0,
+      expenseChange: 0
     };
     
-    loadSummaryData();
-  }, []);
+    // If no data yet, return defaults
+    if (!data) return defaultSummary;
+    
+    const transactions: Transaction[] = data;
+    
+    // Calculate total balance
+    const totalBalance = transactions.reduce((sum, t) => 
+      sum + (t.type === 'income' ? t.amount : -t.amount), 0);
+    
+    // Get this month's transactions
+    const now = new Date();
+    const thisMonth = now.getMonth();
+    const thisYear = now.getFullYear();
+    
+    const thisMonthTransactions = transactions.filter(t => {
+      const date = new Date(t.date);
+      return date.getMonth() === thisMonth && date.getFullYear() === thisYear;
+    });
+    
+    // Last month's transactions
+    const lastMonth = thisMonth === 0 ? 11 : thisMonth - 1;
+    const lastMonthYear = thisMonth === 0 ? thisYear - 1 : thisYear;
+    
+    const lastMonthTransactions = transactions.filter(t => {
+      const date = new Date(t.date);
+      return date.getMonth() === lastMonth && date.getFullYear() === lastMonthYear;
+    });
+    
+    // Calculate monthly income and expenses
+    const monthlyIncome = thisMonthTransactions
+      .filter(t => t.type === 'income')
+      .reduce((sum, t) => sum + t.amount, 0);
+    
+    const monthlyExpenses = thisMonthTransactions
+      .filter(t => t.type === 'expense')
+      .reduce((sum, t) => sum + t.amount, 0);
+    
+    // Calculate last month's income and expenses
+    const lastMonthIncome = lastMonthTransactions
+      .filter(t => t.type === 'income')
+      .reduce((sum, t) => sum + t.amount, 0);
+    
+    const lastMonthExpenses = lastMonthTransactions
+      .filter(t => t.type === 'expense')
+      .reduce((sum, t) => sum + t.amount, 0);
+    
+    // Calculate changes
+    const balanceChange = lastMonthIncome - lastMonthExpenses === 0 ? 0 :
+      ((monthlyIncome - monthlyExpenses) - (lastMonthIncome - lastMonthExpenses)) / 
+      Math.abs(lastMonthIncome - lastMonthExpenses) * 100;
+    
+    const incomeChange = lastMonthIncome === 0 ? 0 : 
+      (monthlyIncome - lastMonthIncome) / lastMonthIncome * 100;
+    
+    const expenseChange = lastMonthExpenses === 0 ? 0 : 
+      (monthlyExpenses - lastMonthExpenses) / lastMonthExpenses * 100;
+    
+    return {
+      totalBalance,
+      monthlyIncome,
+      monthlyExpenses,
+      balanceChange,
+      incomeChange,
+      expenseChange
+    };
+  }, [data]);
 
   // Format currency
   const formatCurrency = (amount: number) => {

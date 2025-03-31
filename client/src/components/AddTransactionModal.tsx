@@ -27,8 +27,9 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
       return await addTransaction(transactionData);
     },
     onSuccess: () => {
-      // Invalidate and refetch any queries that depend on transaction data
+      // Invalidate and refetch queries that depend on transaction data
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['financial-data'] });
       
       toast({
         title: 'Transaction added',
