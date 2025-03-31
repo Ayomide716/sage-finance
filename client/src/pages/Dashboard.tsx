@@ -18,10 +18,22 @@ const Dashboard: React.FC = () => {
       
       {/* Main Content */}
       <main className="container mx-auto px-4 pb-20 pt-6">
-        <SummaryCards />
-        <BudgetOverview />
-        <RecentTransactions />
-        <FinancialInsights />
+        {/* Responsive grid layout that adapts for all screen sizes */}
+        <div className="mb-6">
+          <SummaryCards />
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="lg:col-span-1">
+            <BudgetOverview />
+          </div>
+          <div className="lg:col-span-1">
+            <RecentTransactions />
+          </div>
+          <div className="lg:col-span-2">
+            <FinancialInsights />
+          </div>
+        </div>
       </main>
     </>
   );

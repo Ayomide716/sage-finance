@@ -5,8 +5,9 @@ interface BudgetProgressBarProps {
 }
 
 const BudgetProgressBar: React.FC<BudgetProgressBarProps> = ({ budget }) => {
-  // Calculate percentage used
-  const percentUsed = (budget.spent / budget.amount) * 100;
+  // Calculate percentage used (handle possible null/undefined spent value)
+  const spent = typeof budget.spent === 'number' ? budget.spent : 0;
+  const percentUsed = (spent / budget.amount) * 100;
   const isOverBudget = percentUsed > 100;
   
   // Determine color based on percentage
@@ -88,7 +89,7 @@ const BudgetProgressBar: React.FC<BudgetProgressBarProps> = ({ budget }) => {
           <h3 className="font-medium">{budget.category}</h3>
         </div>
         <p className="text-sm font-medium">
-          {formatCurrency(budget.spent)} / {formatCurrency(budget.amount)}
+          {formatCurrency(spent)} / {formatCurrency(budget.amount)}
         </p>
       </div>
       <div className="h-2 bg-borderGray rounded-full overflow-hidden">
@@ -99,7 +100,7 @@ const BudgetProgressBar: React.FC<BudgetProgressBarProps> = ({ budget }) => {
       </div>
       <p className={`text-xs mt-1 ${isOverBudget ? 'text-danger' : 'text-textGray'}`}>
         {isOverBudget 
-          ? `Over budget by ${formatCurrency(budget.spent - budget.amount)}` 
+          ? `Over budget by ${formatCurrency(spent - budget.amount)}` 
           : `${Math.round(percentUsed)}% of budget used`
         }
       </p>

@@ -99,14 +99,7 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
             </>
           )}
           
-          {!user && (
-            <button 
-              onClick={() => setLocation('/login')}
-              className="text-sm font-medium text-primary"
-            >
-              Login
-            </button>
-          )}
+          {/* No login button needed here as we have a dedicated login page */}
         </div>
       </div>
     </header>

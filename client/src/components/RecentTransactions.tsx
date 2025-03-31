@@ -29,8 +29,8 @@ const RecentTransactions: React.FC = () => {
   };
 
   return (
-    <section className="mb-8">
-      <Card className="bg-white rounded-lg shadow overflow-hidden">
+    <section>
+      <Card className="bg-white rounded-lg shadow overflow-hidden h-full">
         <div className="flex justify-between items-center p-5 border-b border-borderGray">
           <h2 className="text-lg font-semibold">Recent Transactions</h2>
           <button 

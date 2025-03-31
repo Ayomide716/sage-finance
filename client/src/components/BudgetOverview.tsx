@@ -23,8 +23,8 @@ const BudgetOverview: React.FC = () => {
   };
 
   return (
-    <section className="mb-8">
-      <Card className="bg-white p-5">
+    <section>
+      <Card className="bg-white p-5 h-full">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Budget Overview</h2>
           <button 
