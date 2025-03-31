@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { initDB } from "@/lib/db";
 import { initPWA } from "@/lib/pwa";
 import { AuthProvider, useAuth } from "@/lib/auth";
+import { NotificationsProvider, useNotifications } from "@/lib/notifications";
 
 function Router() {
   const { user } = useAuth();
@@ -64,6 +65,7 @@ function AppContent() {
   const [isDbInitialized, setIsDbInitialized] = useState(false);
   const [isInitializing, setIsInitializing] = useState(true);
   const { user } = useAuth();
+  const { checkBudgetAlerts } = useNotifications();
 
   useEffect(() => {
     // Initialize the database and PWA features
@@ -89,6 +91,21 @@ function AppContent() {
     initialization();
   }, []);
 
+  // Check for budget alerts when user logs in or changes
+  useEffect(() => {
+    if (user && isDbInitialized) {
+      // Check budget alerts on initial load
+      checkBudgetAlerts();
+      
+      // Set up interval to check budget alerts periodically
+      const alertInterval = setInterval(() => {
+        checkBudgetAlerts();
+      }, 5 * 60 * 1000); // Check every 5 minutes
+      
+      return () => clearInterval(alertInterval);
+    }
+  }, [user, isDbInitialized, checkBudgetAlerts]);
+
   if (isInitializing) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-mediumGray">
@@ -112,8 +129,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <AppContent />
-        <Toaster />
+        <NotificationsProvider>
+          <AppContent />
+          <Toaster />
+        </NotificationsProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

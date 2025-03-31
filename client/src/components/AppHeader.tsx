@@ -11,6 +11,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Dialog } from '@/components/ui/dialog';
 import AddTransactionModal from './AddTransactionModal';
+import NotificationBell from './NotificationBell';
 
 interface AppHeaderProps {}
 
@@ -153,6 +154,8 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
                   <span className="absolute top-0 right-0 h-2 w-2 bg-destructive rounded-full"></span>
                 )}
               </button>
+              
+              <NotificationBell />
               
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-white">
