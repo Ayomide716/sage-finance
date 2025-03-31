@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <title>FinTrack - Offline</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/fintrack-logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #f1f5f9;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+    }
+    .offline-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 32px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #0f172a;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+      color: #64748b;
+    }
+    .retry-button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .retry-button:hover {
+      background-color: #1e40af;
+    }
+    .offline-icon {
+      margin-bottom: 16px;
+      color: #f59e0b;
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="11" fill="#2563eb" />
+      <path d="M7 13.5h2m-2-3h4m-4 6h6m0-9v9m4-2v2m0-6v2" stroke="white" stroke-width="2" stroke-linecap="round" />
+    </svg>
+    
+    <div class="offline-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1l22 22M16.72 12.56a6 6 0 00-8.42-8.42M5 12.55a6 6 0 001.72 4.03m5.28-2.31a2 2 0 10.37 1.34M9.44 9.44C8.58 10.3 8 11.57 8 13c0 2.21 1.79 4 4 4 1.43 0 2.7-.58 3.56-1.44" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    
+    <h1>You're offline</h1>
+    <p>FinTrack requires an internet connection to sync your latest financial data. Your previously loaded data is still available in the app.</p>
+    <button class="retry-button" onclick="window.location.reload()">
+      Try Again
+    </button>
+  </div>
+</body>
+</html>
