@@ -134,6 +134,7 @@ export const addTransaction = async (newTransaction: InsertTransaction): Promise
     const user = JSON.parse(userString);
     
     // Use the API to add the transaction
+    console.log('Adding transaction:', { ...newTransaction, userId: user.id });
     const response = await fetch('/api/transactions', {
       method: 'POST',
       headers: {
@@ -146,9 +147,12 @@ export const addTransaction = async (newTransaction: InsertTransaction): Promise
       credentials: 'include'
     });
     
+    console.log('Response status:', response.status);
+    
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.error('Server response:', errorData);
+      console.error('Response headers:', Object.fromEntries(response.headers.entries()));
       throw new Error(errorData.message || `Failed to add transaction: ${response.status} ${response.statusText}`);
     }
     
