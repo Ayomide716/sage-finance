@@ -29,7 +29,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
   // Create a mutation for adding transactions
   const addTransactionMutation = useMutation({
     mutationFn: async (transactionData: any) => {
-      return await addTransaction(transactionData);
+      return await addTransaction(transactionData, user!.id);
     },
     onSuccess: () => {
       // Invalidate and refetch queries that depend on transaction data

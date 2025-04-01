@@ -123,15 +123,14 @@ export const getTransactions = async (): Promise<{ transactions: Transaction[] }
 };
 
 // Add a new transaction
-export const addTransaction = async (newTransaction: InsertTransaction): Promise<Transaction> => {
+export const addTransaction = async (newTransaction: InsertTransaction, userId: string): Promise<Transaction> => {
   try {
-    const { user } = useAuth();
-    if (!user || !user.id) {
+    if (!userId) {
       throw new Error('User not authenticated');
     }
     
     // Use the API to add the transaction
-    console.log('Adding transaction:', { ...newTransaction, userId: user.id });
+    console.log('Adding transaction:', { ...newTransaction, userId });
     const response = await fetch('/api/transactions', {
       method: 'POST',
       headers: {
