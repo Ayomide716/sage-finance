@@ -138,7 +138,7 @@ export const addTransaction = async (newTransaction: InsertTransaction, userId: 
       },
       body: JSON.stringify({
         ...newTransaction,
-        userId: user.id
+        userId
       }),
       credentials: 'include'
     });
