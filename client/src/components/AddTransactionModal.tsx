@@ -8,7 +8,7 @@ import { addTransaction } from '@/lib/db';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {useAuth} from '@/hooks/useAuth';
-import {useNavigate} from 'react-router-dom';
+import {useLocation} from 'wouter';
 
 interface AddTransactionModalProps {
   onClose: () => void;
@@ -18,7 +18,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     if (!user) {
@@ -28,7 +28,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
         variant: 'destructive'
       });
       onClose();
-      navigate('/login');
+      setLocation('/login');
     }
   }, [user]);
 
