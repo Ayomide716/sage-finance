@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { addTransaction } from '@/lib/db';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import {useAuth} from '@/hooks/useAuth';
+import {useNavigate} from 'react-router-dom';
 
 interface AddTransactionModalProps {
   onClose: () => void;
@@ -16,22 +18,27 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
-  if (!user) {
-    toast({
-      title: 'Authentication Required',
-      description: 'Please log in to add transactions.',
-      variant: 'destructive'
-    });
-    onClose();
-    return null;
-  }
+  useEffect(() => {
+    if (!user) {
+      toast({
+        title: 'Authentication Required',
+        description: 'Please log in to add transactions.',
+        variant: 'destructive'
+      });
+      onClose();
+      navigate('/login');
+    }
+  }, [user]);
+
+  if (!user) return null;
   const [transactionType, setTransactionType] = useState<'expense' | 'income'>('expense');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  
+
   // Create a mutation for adding transactions
   const addTransactionMutation = useMutation({
     mutationFn: async (transactionData: any) => {
@@ -41,13 +48,13 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
       // Invalidate and refetch queries that depend on transaction data
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       queryClient.invalidateQueries({ queryKey: ['financial-data'] });
-      
+
       toast({
         title: 'Transaction added',
         description: 'Your transaction has been successfully recorded.',
         variant: 'success'
       });
-      
+
       // Close the modal
       onClose();
     },
@@ -62,7 +69,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!amount || parseFloat(amount) <= 0) {
       toast({
         title: 'Invalid amount',
@@ -71,7 +78,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
       });
       return;
     }
-    
+
     if (!category) {
       toast({
         title: 'Category required',
@@ -80,7 +87,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
       });
       return;
     }
-    
+
     // Execute the mutation
     addTransactionMutation.mutate({
       type: transactionType,
@@ -96,7 +103,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
       <DialogHeader>
         <DialogTitle>Add Transaction</DialogTitle>
       </DialogHeader>
-      
+
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <Label className="block text-textDark font-medium mb-2">Transaction Type</Label>
@@ -129,7 +136,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
             </Button>
           </div>
         </div>
-        
+
         <div className="mb-4">
           <Label htmlFor="amount" className="block text-textDark font-medium mb-2">Amount</Label>
           <div className="relative">
@@ -147,7 +154,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
             />
           </div>
         </div>
-        
+
         <div className="mb-4">
           <Label htmlFor="category" className="block text-textDark font-medium mb-2">Category</Label>
           <Select value={category} onValueChange={setCategory} required>
@@ -167,7 +174,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
             </SelectContent>
           </Select>
         </div>
-        
+
         <div className="mb-4">
           <Label htmlFor="description" className="block text-textDark font-medium mb-2">Description</Label>
           <Input 
@@ -179,7 +186,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        
+
         <div className="mb-4">
           <Label htmlFor="date" className="block text-textDark font-medium mb-2">Date</Label>
           <Input 
@@ -191,7 +198,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
             required
           />
         </div>
-        
+
         <Button type="submit" className="w-full bg-primary text-white py-3 font-medium mt-2">
           Add Transaction
         </Button>

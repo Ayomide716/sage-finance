@@ -125,13 +125,10 @@ export const getTransactions = async (): Promise<{ transactions: Transaction[] }
 // Add a new transaction
 export const addTransaction = async (newTransaction: InsertTransaction): Promise<Transaction> => {
   try {
-    // Get user from localStorage
-    const userString = localStorage.getItem('financeUser');
-    if (!userString) {
+    const { user } = useAuth();
+    if (!user || !user.id) {
       throw new Error('User not authenticated');
     }
-    
-    const user = JSON.parse(userString);
     
     // Use the API to add the transaction
     console.log('Adding transaction:', { ...newTransaction, userId: user.id });
