@@ -38,7 +38,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
   }, [user]);
 
   if (!user) return null;
-
+  
   // Create a mutation for adding transactions
   const addTransactionMutation = useMutation({
     mutationFn: async (transactionData: any) => {
