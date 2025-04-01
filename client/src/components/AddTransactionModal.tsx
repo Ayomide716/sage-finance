@@ -19,6 +19,11 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
   const queryClient = useQueryClient();
   const { user } = useAuth();
   const [, setLocation] = useLocation();
+  const [transactionType, setTransactionType] = useState<'expense' | 'income'>('expense');
+  const [amount, setAmount] = useState('');
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
   useEffect(() => {
     if (!user) {
@@ -33,11 +38,6 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
   }, [user]);
 
   if (!user) return null;
-  const [transactionType, setTransactionType] = useState<'expense' | 'income'>('expense');
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
   // Create a mutation for adding transactions
   const addTransactionMutation = useMutation({
