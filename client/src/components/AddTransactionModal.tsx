@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { addTransaction } from '@/lib/db';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {useAuth} from '@/hooks/useAuth';
+import {useAuth} from '@/lib/auth';
 import {useLocation} from 'wouter';
 
 interface AddTransactionModalProps {
