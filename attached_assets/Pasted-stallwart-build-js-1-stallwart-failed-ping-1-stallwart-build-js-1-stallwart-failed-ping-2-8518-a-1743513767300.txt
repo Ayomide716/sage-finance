@@ -1,0 +1,465 @@
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+8518-a7db30cb14d36c6b.js:1 Replit version cefe636e, pid2 version 0.0.1159
+FinanceTracker:1 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://replit.com/public/fonts/ibm-plex-sans-v8-latin-regular.woff2
+_app-a375307a0e9c86b0.js:13 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+stallwart.build.js:1 stallwart: failed ping 1
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:49083)
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:49083)
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:49083)
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:49083)
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:49083)
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:49083)
+content-all.js:1 Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist.
+    at y (content-all.js:1:49083)
+_app-a375307a0e9c86b0.js:13 [LaunchDarkly] LaunchDarkly client initialized
+_app-a375307a0e9c86b0.js:13 [TikTok Pixel] - Invalid pixel ID
+Issue: The pixel ID is invalid. This could prevent your pixel from receiving data.
+Suggestion: Please go to Events Manager and find the correct pixel ID.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+recaptcha__en.js:201 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxK.woff2
+recaptcha__en.js:201 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4.woff2
+FinanceTracker:1 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://replit.com/public/fonts/ibm-plex-sans-v8-latin-500.woff2
+FinanceTracker:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Unrecognized feature: 'pointer-lock'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-717a1d8aaf3f54b9.js:1
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+stallwart.build.js:1 stallwart: failed ping 1
+FinanceTracker:1 Uncaught (in promise) AbortError: The play() request was interrupted by a call to pause(). https://goo.gl/LdLk22
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je53v0h2v9135634466za200&_p=1743511535245&_gaz=1&gcd=13l3l3l3l2l1&npa=0&dma=0&tag_exp=102482433~102788824~102803279~102813109~102887799~102926062~102964103~102975949~102976415&ul=en-us&sr=1366x768&cid=1970318356.1743425929&ecid=1791870208&ir=1&uaa=x86&uab=64&uafvl=Chromium%3B134.0.6998.178%7CNot%253AA-Brand%3B24.0.0.0%7CGoogle%2520Chrome%3B134.0.6998.178&uamb=0&uam=&uap=Windows&uapv=10.0.0&uaw=0&are=1&pae=1&frm=0&pscdl=noapi&ec_mode=a&_eu=EBAI&_s=38&dl=https%3A%2F%2Freplit.com%2F%40ayomidefamoyegu%2FFinanceTracker&dp=%2F%40ayomidefamoyegu%2FFinanceTracker&dt=replEnvironmentDesktop&sid=1743511542&sct=6&seg=1&_tu=wAQ&en=Assistant%20Used&_c=1&_ee=1&ep.event_category=All&ep.value=0&_et=29272&tfd=607580:1  Failed to load resource: net::ERR_CONNECTION_CLOSED
+ Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+ Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+ Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+ Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+ Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+ Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 5
+stallwart.build.js:1 stallwart: session stalled
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+www.google-analytics.com/collect?v=1&_v=j101&aip=1&a=1954803372&t=event&ni=0&_s=98&dl=https%3A%2F%2Freplit.com%2F%40ayomidefamoyegu%2FFinanceTracker&dp=%2F%40ayomidefamoyegu%2FFinanceTracker&ul=en-us&de=UTF-8&dt=replEnvironmentDesktop&sd=24-bit&sr=1366x768&vp=1366x651&je=0&ec=All&ea=Workspace%20Port%20Opened&ev=0&_u=SCCAgEAjQAAAAGgCIAD~&jid=&gjid=&cid=1970318356.1743425929&tid=UA-25629695-1&_gid=1178887273.1743425929&z=1209940306:1 
+            
+            
+           Failed to load resource: net::ERR_CONNECTION_CLOSED
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+d @ main-7a89638f3baa5e6b.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+useMemo @ framework-717a1d8aaf3f54b9.js:1
+t.useMemo @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+ld @ framework-717a1d8aaf3f54b9.js:1
+ou @ framework-717a1d8aaf3f54b9.js:1
+i @ framework-717a1d8aaf3f54b9.js:1
+uI @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+uM @ framework-717a1d8aaf3f54b9.js:1
+uS @ framework-717a1d8aaf3f54b9.js:1
+C @ framework-717a1d8aaf3f54b9.js:1
+z @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+d @ main-7a89638f3baa5e6b.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+useMemo @ framework-717a1d8aaf3f54b9.js:1
+t.useMemo @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+ld @ framework-717a1d8aaf3f54b9.js:1
+ou @ framework-717a1d8aaf3f54b9.js:1
+i @ framework-717a1d8aaf3f54b9.js:1
+uI @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+uM @ framework-717a1d8aaf3f54b9.js:1
+uS @ framework-717a1d8aaf3f54b9.js:1
+C @ framework-717a1d8aaf3f54b9.js:1
+z @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+d @ main-7a89638f3baa5e6b.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+useMemo @ framework-717a1d8aaf3f54b9.js:1
+t.useMemo @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+ld @ framework-717a1d8aaf3f54b9.js:1
+ou @ framework-717a1d8aaf3f54b9.js:1
+i @ framework-717a1d8aaf3f54b9.js:1
+uI @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+uM @ framework-717a1d8aaf3f54b9.js:1
+uS @ framework-717a1d8aaf3f54b9.js:1
+C @ framework-717a1d8aaf3f54b9.js:1
+z @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+d @ main-7a89638f3baa5e6b.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+useMemo @ framework-717a1d8aaf3f54b9.js:1
+t.useMemo @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+ld @ framework-717a1d8aaf3f54b9.js:1
+ou @ framework-717a1d8aaf3f54b9.js:1
+i @ framework-717a1d8aaf3f54b9.js:1
+uI @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+uM @ framework-717a1d8aaf3f54b9.js:1
+uS @ framework-717a1d8aaf3f54b9.js:1
+C @ framework-717a1d8aaf3f54b9.js:1
+z @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 WARN: A component changed from uncontrolled to controlled.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+(anonymous) @ _app-a375307a0e9c86b0.js:30
+oO @ framework-717a1d8aaf3f54b9.js:1
+uB @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+uO @ framework-717a1d8aaf3f54b9.js:1
+u_ @ framework-717a1d8aaf3f54b9.js:1
+r6 @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+d @ main-7a89638f3baa5e6b.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+useMemo @ framework-717a1d8aaf3f54b9.js:1
+t.useMemo @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+ld @ framework-717a1d8aaf3f54b9.js:1
+ou @ framework-717a1d8aaf3f54b9.js:1
+i @ framework-717a1d8aaf3f54b9.js:1
+uI @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+uM @ framework-717a1d8aaf3f54b9.js:1
+uS @ framework-717a1d8aaf3f54b9.js:1
+C @ framework-717a1d8aaf3f54b9.js:1
+z @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+d @ main-7a89638f3baa5e6b.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+useMemo @ framework-717a1d8aaf3f54b9.js:1
+t.useMemo @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ _app-a375307a0e9c86b0.js:29
+ld @ framework-717a1d8aaf3f54b9.js:1
+ou @ framework-717a1d8aaf3f54b9.js:1
+i @ framework-717a1d8aaf3f54b9.js:1
+uI @ framework-717a1d8aaf3f54b9.js:1
+(anonymous) @ framework-717a1d8aaf3f54b9.js:1
+uM @ framework-717a1d8aaf3f54b9.js:1
+uS @ framework-717a1d8aaf3f54b9.js:1
+C @ framework-717a1d8aaf3f54b9.js:1
+z @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+framework-717a1d8aaf3f54b9.js:1 Unable to preventDefault inside passive event listener invocation.
+preventDefault @ framework-717a1d8aaf3f54b9.js:1
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//login' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//login' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//login' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//login' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//login' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+_app-a375307a0e9c86b0.js:13 Invalid href 'https://80c7225a-b9b9-4ecd-8369-9b4511f05b7a-00-44c2l5fe9aua.spock.replit.dev//' passed to next/router in page: '/replEnvironmentDesktop'. Repeated forward-slashes (//) or backslashes \ are not valid in the href.
+(anonymous) @ _app-a375307a0e9c86b0.js:13
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html:32 Unrecognized feature: 'battery'.
+workspace_iframe.html:32 Unrecognized feature: 'battery'.
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+firebase.googleapis.com/v1alpha/projects/-/apps/help%20replit-app-a9ae1/webConfig:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+firebase.googleapis.com/v1alpha/projects/-/apps/help%20replit-app-a9ae1/webConfig:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+(index):117 ServiceWorker registration successful
+App.tsx:87 Database initialized successfully
+ [2025-04-01T13:21:26.277Z]  @firebase/analytics: FirebaseError: Analytics: Dynamic config fetch failed: [400] Request contains an invalid argument. (analytics/config-fetch-failed).
+    at fetchDynamicConfig (firebase_analytics.js:841:26)
+    at async attemptFetchDynamicConfigWithRetry (firebase_analytics.js:891:22)
+defaultLogHandler @ chunk-IJ6A4S62.js:1018
+firebase_analytics.js:841 Uncaught (in promise) FirebaseError: Analytics: Dynamic config fetch failed: [400] Request contains an invalid argument. (analytics/config-fetch-failed).
+    at fetchDynamicConfig (firebase_analytics.js:841:26)
+    at async attemptFetchDynamicConfigWithRetry (firebase_analytics.js:891:22)
+firebase.googleapis.com/v1alpha/projects/-/apps/help%20replit-app-a9ae1/webConfig:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+firebase.googleapis.com/v1alpha/projects/-/apps/help%20replit-app-a9ae1/webConfig:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+ ServiceWorker registration successful
+App.tsx:87 Database initialized successfully
+chunk-IJ6A4S62.js?v=2d0bcdd3:1018 [2025-04-01T13:21:26.787Z]  @firebase/analytics: FirebaseError: Analytics: Dynamic config fetch failed: [400] Request contains an invalid argument. (analytics/config-fetch-failed).
+    at fetchDynamicConfig (firebase_analytics.js?v=2d0bcdd3:841:26)
+    at async attemptFetchDynamicConfigWithRetry (firebase_analytics.js?v=2d0bcdd3:891:22)
+defaultLogHandler @ chunk-IJ6A4S62.js?v=2d0bcdd3:1018
+firebase_analytics.js?v=2d0bcdd3:841 Uncaught (in promise) FirebaseError: Analytics: Dynamic config fetch failed: [400] Request contains an invalid argument. (analytics/config-fetch-failed).
+    at fetchDynamicConfig (firebase_analytics.js?v=2d0bcdd3:841:26)
+    at async attemptFetchDynamicConfigWithRetry (firebase_analytics.js?v=2d0bcdd3:891:22)
+firebaseinstallations.googleapis.com/v1/projects/1:371390731641:web:ce3d2136dabe466f6bcba8/installations:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+firebaseinstallations.googleapis.com/v1/projects/1:371390731641:web:ce3d2136dabe466f6bcba8/installations:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+FirebaseError: Installations: Create Installation request failed with error "400 INVALID_ARGUMENT: Request contains an invalid argument." (installations/request-failed).
+    at getErrorFromResponse (firebase_analytics.js:78:24)
+    at async createInstallationRequest (firebase_analytics.js:144:11)
+    at async registerInstallation (firebase_analytics.js:324:41)
+firebaseinstallations.googleapis.com/v1/projects/1:371390731641:web:ce3d2136dabe466f6bcba8/installations:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+firebaseinstallations.googleapis.com/v1/projects/1:371390731641:web:ce3d2136dabe466f6bcba8/installations:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()
+FirebaseError: Installations: Create Installation request failed with error "400 INVALID_ARGUMENT: Request contains an invalid argument." (installations/request-failed).
+    at getErrorFromResponse (firebase_analytics.js?v=2d0bcdd3:78:24)
+    at async createInstallationRequest (firebase_analytics.js?v=2d0bcdd3:144:11)
+    at async registerInstallation (firebase_analytics.js?v=2d0bcdd3:324:41)
+ Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+(anonymous) @ @radix-ui_react-dialog.js:339
+ Adding transaction: Object
+ Error adding transaction: ReferenceError: user is not defined
+    at addTransaction (db.ts:100:17)
+    at Object.mutationFn (AddTransactionModal.tsx:42:20)
+    at Object.fn (@tanstack_react-query.js:1189:29)
+    at run (@tanstack_react-query.js:494:49)
+    at Object.start (@tanstack_react-query.js:536:9)
+    at _a6.execute (@tanstack_react-query.js:1225:56)
+addTransaction @ db.ts:113
+
+                
+          
+          
+          
+         Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies.
