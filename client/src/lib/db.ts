@@ -147,7 +147,9 @@ export const addTransaction = async (newTransaction: InsertTransaction): Promise
     });
     
     if (!response.ok) {
-      throw new Error(`Failed to add transaction: ${response.status} ${response.statusText}`);
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Server response:', errorData);
+      throw new Error(errorData.message || `Failed to add transaction: ${response.status} ${response.statusText}`);
     }
     
     return await response.json();
