@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -25,20 +26,6 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
-  useEffect(() => {
-    if (!user) {
-      toast({
-        title: 'Authentication Required',
-        description: 'Please log in to add transactions.',
-        variant: 'destructive'
-      });
-      onClose();
-      setLocation('/login');
-    }
-  }, [user]);
-
-  if (!user) return null;
-  
   // Create a mutation for adding transactions
   const addTransactionMutation = useMutation({
     mutationFn: async (transactionData: any) => {
@@ -66,6 +53,20 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) =>
       });
     }
   });
+
+  useEffect(() => {
+    if (!user) {
+      toast({
+        title: 'Authentication Required',
+        description: 'Please log in to add transactions.',
+        variant: 'destructive'
+      });
+      onClose();
+      setLocation('/login');
+    }
+  }, [user]);
+
+  if (!user) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
