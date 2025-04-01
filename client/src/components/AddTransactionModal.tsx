@@ -15,6 +15,17 @@ interface AddTransactionModalProps {
 const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ onClose }) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+
+  if (!user) {
+    toast({
+      title: 'Authentication Required',
+      description: 'Please log in to add transactions.',
+      variant: 'destructive'
+    });
+    onClose();
+    return null;
+  }
   const [transactionType, setTransactionType] = useState<'expense' | 'income'>('expense');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
